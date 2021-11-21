@@ -1,0 +1,14 @@
++-------------------------------------------------------------+----------------+
+|                  applist.sequence                           | applist.count  |
++-------------------------------------------------------------+----------------+
+| 'google_partner_se' 'google_services_f' 'google_text-to-sp' | 3269           |
+| 'contacts' 'contacts_storage' 'context_service'             | 3132           |
+| 'contacts_storage' 'context_service' 'csc'                  | 3119           |
+| 'google' 'google_partner_se' 'google_services_f'            | 3008           |
+| 'gmail' 'google' 'google_partner_se'                        | 2651           |
+| 'com.sec.android.a' 'com.sec.epdg' 'com.sec.ims'            | 2234           |
+| 'package_access_he' 'package_installer' 'phone'             | 2209           |
+| 'calculator' 'calendar' 'calendar_storage'                  | 2172           |
+| 'messages' 'messenger' 'mmsservice'                         | 2081           |
+| 'message_service' 'messages' 'messenger'                    | 1949           |
++-------------------------------------------------------------+----------------+
