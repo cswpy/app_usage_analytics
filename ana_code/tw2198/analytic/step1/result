@@ -1,0 +1,2 @@
+rm  -f output/output.txt
+hdfs dfs -getmerge /user/tw2198/project/output output/output.txt

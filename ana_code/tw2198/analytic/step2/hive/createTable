@@ -1,0 +1,4 @@
+CREATE EXTERNAL TABLE Applist (sequence STRING, count INT)
+ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY '~'
+    LOCATION '/user/tw2198/project/ApplistDB';
