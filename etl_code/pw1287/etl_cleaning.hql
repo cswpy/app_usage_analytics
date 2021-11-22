@@ -1,0 +1,1 @@
+CREATE TABLE frappe_joined AS SELECT f.*, m.name, m.category, m.rating FROM frappe f LEFT JOIN meta_cleaned m ON f.app_id = m.app_id;
