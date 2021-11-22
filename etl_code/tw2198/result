@@ -1,0 +1,2 @@
+rm  -f output.txt
+hdfs dfs -getmerge /user/tw2198/hw7/cleaning/output cleaned.txt
