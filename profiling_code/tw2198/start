@@ -1,0 +1,2 @@
+hdfs dfs -rm -r hw7/profiling/output
+hadoop jar CountRecs.jar CountRecs hw7/cleaned.txt /user/tw2198/hw7/profiling/output

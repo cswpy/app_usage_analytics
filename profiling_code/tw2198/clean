@@ -1,0 +1,3 @@
+hdfs dfs -rm -r hw7/profiling/output
+rm -f *.class
+rm -f *.jar

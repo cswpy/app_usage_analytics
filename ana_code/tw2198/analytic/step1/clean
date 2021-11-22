@@ -1,3 +1,0 @@
-hdfs dfs -rm -r project/output
-rm -f *.class
-rm -f *.jar

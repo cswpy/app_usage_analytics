@@ -1,0 +1,6 @@
+rm -f *.class
+rm -f *.jar
+javac -classpath `yarn classpath` -d . code/ApplistMapper.java
+javac -classpath `yarn classpath` -d . code/ApplistReducer.java
+javac -classpath `yarn classpath`:. -d . code/Applist.java
+jar -cvf Applist.jar *.class

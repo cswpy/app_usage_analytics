@@ -1,0 +1,2 @@
+hdfs dfs -rm -r hw7/cleaning/output
+hadoop jar cleaning.jar Clean hw7/cleaning/istas.csv /user/tw2198/hw7/cleaning/output

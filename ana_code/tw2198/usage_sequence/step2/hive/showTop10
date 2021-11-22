@@ -1,0 +1,3 @@
+SELECT * FROM applist
+    SORT BY count DESC 
+    LIMIT 10;
