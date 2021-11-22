@@ -1,3 +1,5 @@
+USE pw1287;
+
 SELECT COUNT(DISTINCT(user_id)) FROM frappe;
 
 SELECT COUNT(DISTINCT(app_id)) FROM frappe;
