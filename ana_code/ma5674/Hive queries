@@ -1,0 +1,124 @@
+use ma5674;
+
+CREATE EXTERNAL TABLE appusage1(username STRING, app STRING, interaction STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '~'
+LOCATION '/user/ma5674/project/output11/';
+--- command to create table with all records
+
+select app, count(username) as app_count from appusage1 where interaction != "Closed" group by app order by app_count desc;
+--- command to output the count of applications in descending order
+
+select app, count(username) as app_count from appusage1 where interaction != "Closed" group by app order by app_count desc limit 5;
+select app, count(username) as app_count from appusage1 where interaction != "Closed" group by app order by app_count desc limit 1;
+--- command to output the count of applications of the top most used apps in descending order
+
+
+
+
+CREATE EXTERNAL TABLE appsequence(user_id STRING, app_sequence STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '~'
+LOCATION '/user/ma5674/project/output14/';
+--- create a table with app sequences
+
+select app_sequence, count(user_id) as sequence_count from appsequence group by app_sequence order by sequence_count desc limit 10;
+--- command to output the most common sequences of app usage sorted in decsending order (for the top 10 sequences)
+
+
+
+
+CREATE EXTERNAL TABLE unique_appusage(user_id STRING, app STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '~'
+LOCATION '/user/ma5674/project/output12/';
+--- create a table which doesn't include the recurring names of apps as a resulting of continuous repetitive usage of the app
+
+select app, count(user_id) as app_count from unique_appusage group by app order by app_count desc;
+--- command to output the count of unique applications in descending order
+
+select app, count(user_id) as app_count from unique_appusage group by app order by app_count desc limit 10;
+select app, count(user_id) as app_count from unique_appusage group by app order by app_count desc limit 5;
+--- command to output the count of unique applications of the top most used apps in descending order
+
+
+
+-- the following queries and tables are to find the apps that are the maximum used apps by the highest number of users.
+-- this means it outputs the counts of apps that are the maximum used apps individually across the users.
+
+CREATE TABLE unique_appusage_appcount1 
+row format delimited fields terminated by '|' 
+STORED AS RCFile 
+AS SELECT user_id, app, COUNT(app)  AS app_count FROM unique_appusage GROUP BY user_id, app ORDER BY user_id, app_count DESC
+
+
+CREATE TABLE max_appusage 
+row format delimited fields terminated by '|' 
+STORED AS RCFile 
+AS SELECT 
+    sd1.user_id,
+    sd1.app,
+    sd1.app_count
+FROM
+    unique_appusage_appcount1 sd1
+        INNER JOIN
+    (SELECT 
+        user_id, MAX(app_count) AS maxapp_count
+    FROM
+        unique_appusage_appcount1
+    GROUP BY user_id) sd2 
+ON sd1.user_id = sd2.user_id
+AND sd1.app_count = sd2.maxapp_count order by sd1.app_count
+
+
+select max_appusage.app , count(max_appusage.user_id) as top_apps_amongst_users from max_appusage group by max_appusage.app order by top_apps_amongst_users desc limit 10;
+
+
+
+
+-- select username, app, count(username) as app_count from appusage1 where interaction != "Closed" group by username order by app_count desc limit 5;
+
+-- SELECT username, app, MAX(app_count) FROM (SELECT username, app, COUNT(app)  AS app_count FROM appusage1 GROUP BY username, app ORDER BY username, app_count DESC)
+-- GROUP BY username;
+
+-- SELECT app_count.username, app.count.app, MAX(app_count.maximumCount) FROM (SELECT username, app, COUNT(app) as maximumCount FROM appusage1 GROUP BY username, app ORDER BY username, maximumCount DESC)AS app_count GROUP BY app_count.username;
+
+-- SELECT app_count.username, app_count.app, MAX(app_count.maximumCount) FROM (SELECT username, app, COUNT(app) as maximumCount FROM appusage1 GROUP BY username, app ORDER BY username, maximumCount DESC)AS app_count GROUP BY app_count.username;
+
+-- SELECT app_count.username, app_count.app, app_count.maximumCount FROM (SELECT username, app, COUNT(app) as maximumCount FROM appusage1 GROUP BY username, app ORDER BY username, maximumCount DESC LIMIT 1)AS app_count GROUP BY app_count.username ORDER BY maximumC;
+
+
+-- SELECT user_id, app, MAX(app_count) FROM (SELECT user_id, COUNT(app)  AS app_count FROM unique_appusage GROUP BY user_id, app ORDER BY user_id, app_count DESC)
+-- GROUP BY user_id;
+
+-- select user_id, app, max(app_count) as app_max from unique_appusage_appcount1 group by user_id,app order by user_id desc
+-- select user_id, app, app_count from unique_appusage_appcount1 where app_count == max(app_count) group by user_id order by user_id desc
+
+
+-- SELECT user_id, app, MAX(app_count) FROM unique_appusage_appcount1 GROUP BY user_id, app
+
+-- SELECT user_id, app, COUNT(app)  AS app_count FROM unique_appusage GROUP BY user_id, app ORDER BY user_id, app_count DESC
+-- CREATE TABLE ... SELECT user_id, app, COUNT(app)  AS app_count FROM unique_appusage GROUP BY user_id, app ORDER BY user_id, app_count DESC
+
+-- select user_id, app, max(app_count)
+-- from unique_appusage_appcount1
+-- group by user_id, app
+
+-- select * 
+-- from (select * from unique_appusage_appcount1 order by user_id, app_count desc, user_id) x
+-- group by user_id, app, app_count
+
+-- SELECT user_id, MAX(app_count), app
+-- FROM unique_appusage_appcount1 
+-- GROUP BY user_id
+
+
+-- SELECT 
+--     *
+-- FROM
+--     unique_appusage_appcount1
+-- WHERE
+--     app_count IN (SELECT 
+--             MAX(app_count)
+--         FROM
+--             unique_appusage_appcount1
+--         GROUP BY user_id)
+
+
