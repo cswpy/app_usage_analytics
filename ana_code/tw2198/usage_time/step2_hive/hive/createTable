@@ -1,0 +1,4 @@
+CREATE EXTERNAL TABLE usageTime (app STRING, avg_time INT)
+ROW FORMAT DELIMITED
+    FIELDS TERMINATED BY '~'
+    LOCATION '/user/tw2198/project/usageTimeDB';

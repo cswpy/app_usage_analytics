@@ -1,0 +1,2 @@
+hdfs dfs -rm -r project/output
+hadoop jar Applist.jar Applist project/cleaned.txt /user/tw2198/project/output

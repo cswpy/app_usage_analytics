@@ -1,0 +1,3 @@
+SELECT * FROM usagetime
+    SORT BY avg_time DESC 
+    LIMIT 20;

@@ -1,0 +1,1 @@
+hdfs dfs -put ../step1/output/output.txt project/Applist.txt
