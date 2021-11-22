@@ -1,0 +1,10 @@
+#Download origional dataset
+git clone https://github.com/aliannejadi/istas.git
+
+# I then copied the json file to etl_code folder manually
+
+# convert json files to jsv
+python3 ../etl_code/tw2198/converter.py
+
+# put output file into hdfs
+hdfs dfs -put ../etc_code/tw2198/istas.csv project/istas.csv
